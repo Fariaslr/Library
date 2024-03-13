@@ -11,7 +11,7 @@ import model.Livro;
 
 public class LivroJDBC {
 
-    public void create(Livro l) {
+    public void create(Livro livro) {
 
         Connection conexao = ConnectionMySQL.conectar();
         PreparedStatement pst = null;
@@ -20,8 +20,8 @@ public class LivroJDBC {
 
         try {
             pst = conexao.prepareStatement(insert);
-            pst.setString(1, l.getNomeLivro());
-            pst.setInt(2, l.getGenero().getIdGenero());
+            pst.setString(1, livro.getNomeLivro());
+            pst.setInt(2, livro.getGenero().getIdGenero());
 
             pst.executeUpdate();
 
@@ -67,27 +67,26 @@ public class LivroJDBC {
         return livros;
     }
 
-    /*@Override
-    public List<Professor> search(Professor prof) {
+    /*public List<Livro> search(Livro livro) {
 
         Connection conexao = ConnectionMySQL.conectar();
         PreparedStatement pst = null;
         ResultSet rs = null;
 
-        List<Professor> professores = new ArrayList<>();
-        String search = "SELECT * FROM professor WHERE nomeProfessor LIKE ?";
+        List<Livro> livros = new ArrayList<>();
+        String search = "SELECT * FROM livro WHERE nomeLivro LIKE ?";
 
         try {
             pst = conexao.prepareStatement(search);
-            pst.setString(1, "%" + prof.getNomeProfessor() + "%");
+            pst.setString(1, "%" + livro.getNomeLivro() + "%");
 
             rs = pst.executeQuery();
 
             while (rs.next()) {
-
-                prof.setCodigoProfessor(rs.getInt("codigoProfessor"));
-                prof.setNomeProfessor(rs.getString("nomeProfessor"));
-                prof.setMatricula(rs.getString("matricula"));
+                
+                livro.setIdLivro(rs.getInt("idLivro"));
+                livro.setNomeLivro(rs.getString("nomeLivro"));
+                
 
                 professores.add(prof);
             }
@@ -98,7 +97,7 @@ public class LivroJDBC {
         }
         return professores;
     }
-
+/*
     @Override
     public void update(Professor p) {
 

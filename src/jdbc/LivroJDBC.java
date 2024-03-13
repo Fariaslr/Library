@@ -1,6 +1,6 @@
 package jdbc;
 
-import dall.ConnectionMySQL;
+import dal.ConnectionMySQL;
 import java.sql.*;
 import java.awt.HeadlessException;
 import java.util.ArrayList;

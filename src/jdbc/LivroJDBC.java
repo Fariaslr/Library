@@ -16,12 +16,12 @@ public class LivroJDBC {
         Connection conexao = ConnectionMySQL.conectar();
         PreparedStatement pst = null;
 
-        String insert = "INSERT INTO livro (nome_livro,id_genero) VALUE(?,?)";
+        String insert = "INSERT INTO livros (nome_livro,id_genero) VALUE(?,?)";
 
         try {
             pst = conexao.prepareStatement(insert);
             pst.setString(1, livro.getNomeLivro());
-            pst.setInt(2, livro.getGenero().getIdGenero());
+            pst.setInt(2, livro.getGeneroLivro().getIdGenero());
 
             pst.executeUpdate();
 
@@ -41,7 +41,7 @@ public class LivroJDBC {
         ResultSet rs = null;
 
         List<Livro> livros = new ArrayList<>();
-        String list = "SELECT * FROM livro l INNER JOIN genero g ON l.id_genero = g.id_genero ORDER BY nome_livro";
+        String list = "SELECT * FROM livros l INNER JOIN generos g ON l.id_genero = g.id_genero ORDER BY nome_livro";
 
         try {
             pst = conexao.prepareStatement(list);
@@ -55,7 +55,7 @@ public class LivroJDBC {
                 livro.setNomeLivro(rs.getString("nome_livro"));
                 genero.setIdGenero(rs.getInt("id_genero"));
                 genero.setDescricaoGenero(rs.getString("descricao_genero"));
-                livro.setGenero(genero);
+                livro.setGeneroLivro(genero);
 
                 livros.add(livro);
             }
@@ -121,18 +121,17 @@ public class LivroJDBC {
             ConnectionMySQL.closeConnection(conexao, pst);
         }
     }
-
-    @Override
-    public void delete(Professor p) {
+    */
+    public void delete(Livro livro) {
 
         Connection conexao = ConnectionMySQL.conectar();
         PreparedStatement pst = null;
 
-        String update = "DELETE FROM professor WHERE codigoProfessor = ?";
+        String update = "DELETE FROM livro WHERE id_livro = ?";
 
         try {
             pst = conexao.prepareStatement(update);
-            pst.setInt(1, p.getCodigoProfessor());
+            pst.setInt(1, livro.getIdLivro());
 
             pst.executeUpdate();
 
@@ -143,5 +142,4 @@ public class LivroJDBC {
             ConnectionMySQL.closeConnection(conexao, pst);
         }
     }
-     */
 }

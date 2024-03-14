@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jdbc;
 
 import dal.ConnectionMySQL;
@@ -14,10 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Genero;
 
-/**
- *
- * @author aluno
- */
 public class GeneroJDBC {
 
     public List<Genero> read() {
@@ -27,7 +18,7 @@ public class GeneroJDBC {
         ResultSet rs = null;
 
         List<Genero> generos = new ArrayList<>();
-        String list = "SELECT * FROM genero ORDER BY descricao_genero";
+        String list = "SELECT * FROM generos ORDER BY descricao_genero";
 
         try {
             pst = conexao.prepareStatement(list);

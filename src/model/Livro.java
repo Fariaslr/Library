@@ -1,10 +1,15 @@
 package model;
 
+import java.util.Date;
+
 public class Livro {
 
     int idLivro;
     String nomeLivro;
-    Genero genero;
+    int paginas;
+    int nota;
+    Date dataRegistro;
+    Genero generoLivro;
 
     public int getIdLivro() {
         return idLivro;
@@ -22,11 +27,35 @@ public class Livro {
         this.nomeLivro = nomeLivro;
     }
 
-    public Genero getGenero() {
-        return genero;
+    public int getPaginas() {
+        return paginas;
     }
 
-    public void setGenero(Genero genero) {
-        this.genero = genero;
+    public void setPaginas(int paginas) {
+        this.paginas = paginas;
+    }
+
+    public int getNota() {
+        return nota;
+    }
+
+    public void setNota(int nota) {
+        this.nota = nota;
+    }
+
+    public Date getDataRegistro() {
+        return dataRegistro;
+    }
+
+    public void setDataRegistro(Date dataRegistro) {
+        this.dataRegistro = dataRegistro;
+    }
+
+    public Genero getGeneroLivro() {
+        return generoLivro;
+    }
+
+    public void setGeneroLivro(Genero generoLivro) {
+        this.generoLivro = generoLivro;
     }
 }

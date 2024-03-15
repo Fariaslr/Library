@@ -5,6 +5,7 @@ import java.util.Date;
 public class Marcacao {
 
     int idMarcacao;
+    Livro livro;
     int paginaAtual;
     Date dataMarcacao;
     String anotacao;
@@ -40,4 +41,13 @@ public class Marcacao {
     public void setAnotacao(String anotacao) {
         this.anotacao = anotacao;
     }
+
+    public Livro getLivro() {
+        return livro;
+    }
+
+    public void setLivro(Livro livro) {
+        this.livro = livro;
+    }
+
 }

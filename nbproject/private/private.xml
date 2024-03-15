@@ -3,9 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Lucas/OneDrive/Documentos/NetBeansProjects/BookLibrary/src/jdbc/LivroJDBC.java</file>
-            <file>file:/C:/Users/Lucas/OneDrive/Documentos/NetBeansProjects/BookLibrary/src/jdbc/GeneroJDBC.java</file>
-            <file>file:/C:/Users/Lucas/OneDrive/Documentos/NetBeansProjects/BookLibrary/src/dal/ScriptBiblioteca.sql</file>
+            <file>file:/C:/Users/Lucas/OneDrive/Documentos/NetBeansProjects/BookLibrary/src/view/VIEWcadastroLivros.java</file>
+            <file>file:/C:/Users/Lucas/OneDrive/Documentos/NetBeansProjects/BookLibrary/src/view/VIEWmarcacao.java</file>
         </group>
     </open-files>
 </project-private>

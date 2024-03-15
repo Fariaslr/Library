@@ -39,4 +39,28 @@ public class GeneroJDBC {
         }
         return generos;
     }
+
+    public Genero search(Genero genero) {
+        Connection conexao = ConnectionMySQL.conectar();
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        Genero g = new Genero();
+        String search = "SELECT * FROM generos WHERE id_genero = ?";
+
+        try {
+            pst = conexao.prepareStatement(search);
+            pst.setInt(1, genero.getIdGenero());
+
+            rs = pst.executeQuery();
+
+            if (rs.next()) {
+                g.setIdGenero(rs.getInt("id_genero"));
+                g.setDescricaoGenero(rs.getString("descricao_genero"));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return g;
+    }
 }

@@ -16,12 +16,14 @@ public class LivroJDBC {
         Connection conexao = ConnectionMySQL.conectar();
         PreparedStatement pst = null;
 
-        String insert = "INSERT INTO livros (nome_livro,id_genero) VALUE(?,?)";
+        String insert = "INSERT INTO livros (nome_livro,id_genero,paginas,data_registro) VALUE(?,?,?,?)";
 
         try {
             pst = conexao.prepareStatement(insert);
             pst.setString(1, livro.getNomeLivro());
             pst.setInt(2, livro.getGeneroLivro().getIdGenero());
+            pst.setInt(3, livro.getPaginas());
+            pst.setDate(4, new java.sql.Date(livro.getDataRegistro().getTime()));
 
             pst.executeUpdate();
 
@@ -50,9 +52,12 @@ public class LivroJDBC {
             while (rs.next()) {
                 Livro livro = new Livro();
                 Genero genero = new Genero();
-                
+
                 livro.setIdLivro(rs.getInt("id_livro"));
                 livro.setNomeLivro(rs.getString("nome_livro"));
+                livro.setPaginas(rs.getInt("paginas"));
+                livro.setNota(rs.getInt("nota"));
+                livro.setDataRegistro(rs.getDate("data_registro"));
                 genero.setIdGenero(rs.getInt("id_genero"));
                 genero.setDescricaoGenero(rs.getString("descricao_genero"));
                 livro.setGeneroLivro(genero);
@@ -96,21 +101,21 @@ public class LivroJDBC {
             ConnectionMySQL.closeConnection(conexao, pst);
         }
         return professores;
-    }
-/*
-    @Override
-    public void update(Professor p) {
+    }*/
+    
+    public void update(Livro l) {
 
         Connection conexao = ConnectionMySQL.conectar();
         PreparedStatement pst = null;
 
-        String update = "UPDATE professor SET nomeProfessor = ?,matricula = ? WHERE codigoProfessor = ?";
+        String update = "UPDATE livros SET nome_livro = ?, paginas = ?, id_genero = ? WHERE id_livro = ?";
 
         try {
             pst = conexao.prepareStatement(update);
-            pst.setString(1, p.getNomeProfessor());
-            pst.setString(2, p.getMatricula());
-            pst.setInt(3, p.getCodigoProfessor());
+            pst.setString(1, l.getNomeLivro());
+            pst.setInt(2, l.getPaginas());
+            pst.setInt(3, l.getGeneroLivro().getIdGenero());
+            pst.setInt(4, l.getIdLivro());
 
             pst.executeUpdate();
 
@@ -121,13 +126,13 @@ public class LivroJDBC {
             ConnectionMySQL.closeConnection(conexao, pst);
         }
     }
-    */
+
     public void delete(Livro livro) {
 
         Connection conexao = ConnectionMySQL.conectar();
         PreparedStatement pst = null;
 
-        String update = "DELETE FROM livro WHERE id_livro = ?";
+        String update = "DELETE FROM livros WHERE id_livro = ?";
 
         try {
             pst = conexao.prepareStatement(update);

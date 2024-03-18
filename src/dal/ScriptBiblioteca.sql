@@ -17,6 +17,7 @@ create table livros(
     nota int,
     data_registro datetime default current_timestamp,
     data_editado datetime on update current_timestamp,
+    lido boolean,
     id_genero int
 );
 

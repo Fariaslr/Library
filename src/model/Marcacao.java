@@ -5,9 +5,11 @@ import java.util.Date;
 public class Marcacao {
 
     int idMarcacao;
+    String titulo;
     Livro livro;
     int paginaAtual;
-    Date dataMarcacao;
+    Date dataRegistro;
+    Date dataEditado;
     String anotacao;
 
     public int getIdMarcacao() {
@@ -26,12 +28,20 @@ public class Marcacao {
         this.paginaAtual = paginaAtual;
     }
 
-    public Date getDataMarcacao() {
-        return dataMarcacao;
+    public Date getDataRegistro() {
+        return dataRegistro;
     }
 
-    public void setDataMarcacao(Date dataMarcacao) {
-        this.dataMarcacao = dataMarcacao;
+    public void setDataRegistro(Date dataRegistro) {
+        this.dataRegistro = dataRegistro;
+    }
+
+    public Date getDataEditado() {
+        return dataEditado;
+    }
+
+    public void setDataEditado(Date dataEditado) {
+        this.dataEditado = dataEditado;
     }
 
     public String getAnotacao() {
@@ -49,5 +59,14 @@ public class Marcacao {
     public void setLivro(Livro livro) {
         this.livro = livro;
     }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+    
 
 }

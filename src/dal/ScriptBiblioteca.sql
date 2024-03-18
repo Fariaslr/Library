@@ -8,26 +8,28 @@ create table generos(
 );
 
 insert into generos
-value(default,"Terror"),(default,"Suspense"),(default,"Romance"),(default,"Comédia"),(default,"Ação"),(default,"Ficção"),(default,"Investimento"),(default,"Educação");
+value(default,"Terror"),(default,"Suspense"),(default,"Romance"),(default,"Comédia"),(default,"Ação"),(default,"Ficção"),(default,"Investimento"),(default,"Educação"),(default,"Aventura");
 
 create table livros(
     id_livro int auto_increment primary key,
     nome_livro varchar(50),
     paginas int,
     nota int,
-    data_registro date,
+    data_registro datetime default current_timestamp,
+    data_editado datetime on update current_timestamp,
     id_genero int
 );
 
 alter table livros
-add constraint fkGeneroIdGenero foreign key (id_genero) references generos(id_genero);
+add constraint fkGeneroIdGenero foreign key (id_generos) references genero(id_generos);
 
 create table marcacoes(
     id_marcacao int auto_increment primary key,
     id_livro int,
     pagina_atual int,
-    anotacao varchar(200),
-    data_marcacao date
+    data_registro datetime default current_timestamp,
+    data_editado datetime on update current_timestamp,
+    anotacao varchar(200)    
 );
  
 alter table marcacoes

@@ -16,14 +16,14 @@ public class LivroJDBC {
         Connection conexao = ConnectionMySQL.conectar();
         PreparedStatement pst = null;
 
-        String insert = "INSERT INTO livros (nome_livro,id_genero,paginas,data_registro) VALUE(?,?,?,?)";
+        String insert = "INSERT INTO livros (nome_livro,id_genero,paginas,lido) VALUE(?,?,?,?)";
 
         try {
             pst = conexao.prepareStatement(insert);
             pst.setString(1, livro.getNomeLivro());
             pst.setInt(2, livro.getGeneroLivro().getIdGenero());
             pst.setInt(3, livro.getPaginas());
-            pst.setDate(4, new java.sql.Date(livro.getDataRegistro().getTime()));
+            pst.setBoolean(4, livro.isLido());
 
             pst.executeUpdate();
 
@@ -58,6 +58,8 @@ public class LivroJDBC {
                 livro.setPaginas(rs.getInt("paginas"));
                 livro.setNota(rs.getInt("nota"));
                 livro.setDataRegistro(rs.getDate("data_registro"));
+                livro.setDataEditado(rs.getDate("data_editado"));
+                livro.setLido(rs.getBoolean("lido"));
                 genero.setIdGenero(rs.getInt("id_genero"));
                 genero.setDescricaoGenero(rs.getString("descricao_genero"));
                 livro.setGeneroLivro(genero);
@@ -108,7 +110,7 @@ public class LivroJDBC {
         Connection conexao = ConnectionMySQL.conectar();
         PreparedStatement pst = null;
 
-        String update = "UPDATE livros SET nome_livro = ?, paginas = ?, id_genero = ? WHERE id_livro = ?";
+        String update = "UPDATE livros SET nome_livro = ?, paginas = ?, id_genero = ?, lido = ? WHERE id_livro = ?";
 
         try {
             pst = conexao.prepareStatement(update);
@@ -116,6 +118,7 @@ public class LivroJDBC {
             pst.setInt(2, l.getPaginas());
             pst.setInt(3, l.getGeneroLivro().getIdGenero());
             pst.setInt(4, l.getIdLivro());
+            pst.setBoolean(5, l.isLido());
 
             pst.executeUpdate();
 

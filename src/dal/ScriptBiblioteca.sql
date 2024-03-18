@@ -21,7 +21,7 @@ create table livros(
 );
 
 alter table livros
-add constraint fkGeneroIdGenero foreign key (id_generos) references genero(id_generos);
+add constraint fkGeneroIdGenero foreign key (id_genero) references generos (id_genero);
 
 create table marcacoes(
     id_marcacao int auto_increment primary key,

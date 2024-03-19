@@ -74,7 +74,7 @@ public class LivroJDBC {
         return livros;
     }
 
-    /*public List<Livro> search(Livro livro) {
+    public List<Livro> search(Livro livro) {
 
         Connection conexao = ConnectionMySQL.conectar();
         PreparedStatement pst = null;
@@ -90,21 +90,29 @@ public class LivroJDBC {
             rs = pst.executeQuery();
 
             while (rs.next()) {
-                
-                livro.setIdLivro(rs.getInt("idLivro"));
-                livro.setNomeLivro(rs.getString("nomeLivro"));
-                
+                Genero genero = new Genero();
 
-                professores.add(prof);
+                livro.setIdLivro(rs.getInt("id_livro"));
+                livro.setNomeLivro(rs.getString("nome_livro"));
+                livro.setPaginas(rs.getInt("paginas"));
+                livro.setNota(rs.getInt("nota"));
+                livro.setDataRegistro(rs.getDate("data_registro"));
+                livro.setDataEditado(rs.getDate("data_editado"));
+                livro.setLido(rs.getBoolean("lido"));
+                genero.setIdGenero(rs.getInt("id_genero"));
+                genero.setDescricaoGenero(rs.getString("descricao_genero"));
+                livro.setGeneroLivro(genero);
+
+                livros.add(livro);
             }
         } catch (SQLException e) {
             System.out.println("Aqui é o erro: " + e);
         } finally {
             ConnectionMySQL.closeConnection(conexao, pst);
         }
-        return professores;
-    }*/
-    
+        return livros;
+    }
+
     public void update(Livro l) {
 
         Connection conexao = ConnectionMySQL.conectar();

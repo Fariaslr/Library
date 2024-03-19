@@ -17,11 +17,12 @@ create table livros(
     nota int,
     data_registro datetime default current_timestamp,
     data_editado datetime on update current_timestamp,
+    lido boolean,
     id_genero int
 );
 
 alter table livros
-add constraint fkGeneroIdGenero foreign key (id_generos) references genero(id_generos);
+add constraint fkGeneroIdGenero foreign key (id_genero) references generos (id_genero);
 
 create table marcacoes(
     id_marcacao int auto_increment primary key,

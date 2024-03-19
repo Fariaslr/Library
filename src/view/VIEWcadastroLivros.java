@@ -20,16 +20,17 @@ public class VIEWcadastroLivros extends javax.swing.JFrame {
     Livro livro = new Livro();
     boolean editar = false;
 
-    public VIEWcadastroLivros(){
+    public VIEWcadastroLivros() {
         initComponents();
-        
+
         iniciarSpinner();
         coletarBancoDados();
-        preecherComboGenero();        
+        preecherComboGenero();
         preencherTable();
         definirIcone();
+        tabbedPanelBiblioteca.setTabPlacement(2);
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -60,6 +61,8 @@ public class VIEWcadastroLivros extends javax.swing.JFrame {
             }
         });
 
+        tabbedPanelBiblioteca.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        tabbedPanelBiblioteca.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tabbedPanelBiblioteca.setName(""); // NOI18N
 
         panelLivros.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -94,14 +97,14 @@ public class VIEWcadastroLivros extends javax.swing.JFrame {
             .addGroup(panelLivrosLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelLivrosLayout.setVerticalGroup(
             panelLivrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLivrosLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
 
         tabbedPanelBiblioteca.addTab("Início", panelLivros);
@@ -139,7 +142,7 @@ public class VIEWcadastroLivros extends javax.swing.JFrame {
                 .addGroup(panelAreaCriacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelAreaCriacaoLayout.createSequentialGroup()
                         .addComponent(lblNome)
-                        .addGap(254, 324, Short.MAX_VALUE))
+                        .addGap(254, 317, Short.MAX_VALUE))
                     .addGroup(panelAreaCriacaoLayout.createSequentialGroup()
                         .addGroup(panelAreaCriacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblGenero)
@@ -199,11 +202,11 @@ public class VIEWcadastroLivros extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusLost
-        
+
     }//GEN-LAST:event_formFocusLost
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
-        
+
     }//GEN-LAST:event_formFocusGained
 
     private void panelAreaCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panelAreaCriacaoFocusLost
@@ -243,19 +246,22 @@ public class VIEWcadastroLivros extends javax.swing.JFrame {
             case 0:
                 preencherCampos(linha);
                 tabbedPanelBiblioteca.setSelectedIndex(1);
-            break;
+                break;
             case 1:
                 livroDAO.delete(livros.get(linha));
                 coletarBancoDados();
                 preencherTable();
-            break;
+                break;
             case 2:
-                String mensagem = "Marcações\n\n";
-                for(Marcacao m : marcacaoDAO.read(livros.get(linha))){
+                String mensagem = "Marcações:\n\n";
+                for (Marcacao m : marcacaoDAO.read(livros.get(linha))) {
                     mensagem += m.getAnotacao() + "\n";
                 }
                 JOptionPane.showMessageDialog(this, mensagem + "\n");
-            break;
+                break;
+            case 3:
+                new VIEWmarcacao().setVisible(true);
+                break;
             default:
         }
     }//GEN-LAST:event_tableLivrosMouseClicked
@@ -272,7 +278,7 @@ public class VIEWcadastroLivros extends javax.swing.JFrame {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                } 
+                }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(VIEWcadastroLivros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);

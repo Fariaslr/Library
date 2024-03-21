@@ -10,7 +10,7 @@ public class ConnectionMySQL {
         String driver = "com.mysql.cj.jdbc.Driver";
         String url = "jdbc:mysql://localhost:3306/biblioteca";
         String user = "root";
-        String password = "";
+        String password = "123456";
 
         try {
             Class.forName(driver);

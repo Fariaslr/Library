@@ -28,7 +28,7 @@ public class VIEWcadastroLivros extends javax.swing.JFrame {
         preecherComboGenero();
         preencherTable();
         definirIcone();
-        tabbedPanelBiblioteca.setTabPlacement(2);
+        inserirIconesJTabbed();
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -48,6 +48,8 @@ public class VIEWcadastroLivros extends javax.swing.JFrame {
         btnCadastrar = new javax.swing.JButton();
         checkLido = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
+        btnLimpar = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Biblioteca");
@@ -61,8 +63,9 @@ public class VIEWcadastroLivros extends javax.swing.JFrame {
             }
         });
 
-        tabbedPanelBiblioteca.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        tabbedPanelBiblioteca.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
         tabbedPanelBiblioteca.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tabbedPanelBiblioteca.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         tabbedPanelBiblioteca.setName(""); // NOI18N
 
         panelLivros.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -95,19 +98,19 @@ public class VIEWcadastroLivros extends javax.swing.JFrame {
         panelLivrosLayout.setHorizontalGroup(
             panelLivrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLivrosLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(76, 76, 76)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
         panelLivrosLayout.setVerticalGroup(
             panelLivrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelLivrosLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLivrosLayout.createSequentialGroup()
+                .addContainerGap(22, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addGap(18, 18, 18))
         );
 
-        tabbedPanelBiblioteca.addTab("Início", panelLivros);
+        tabbedPanelBiblioteca.addTab("", panelLivros);
 
         panelAreaCriacao.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -133,6 +136,13 @@ public class VIEWcadastroLivros extends javax.swing.JFrame {
 
         jLabel1.setText("Finalizou a leitura?");
 
+        btnLimpar.setText("LIMPAR");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelAreaCriacaoLayout = new javax.swing.GroupLayout(panelAreaCriacao);
         panelAreaCriacao.setLayout(panelAreaCriacaoLayout);
         panelAreaCriacaoLayout.setHorizontalGroup(
@@ -142,7 +152,7 @@ public class VIEWcadastroLivros extends javax.swing.JFrame {
                 .addGroup(panelAreaCriacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelAreaCriacaoLayout.createSequentialGroup()
                         .addComponent(lblNome)
-                        .addGap(254, 317, Short.MAX_VALUE))
+                        .addGap(254, 427, Short.MAX_VALUE))
                     .addGroup(panelAreaCriacaoLayout.createSequentialGroup()
                         .addGroup(panelAreaCriacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblGenero)
@@ -150,15 +160,18 @@ public class VIEWcadastroLivros extends javax.swing.JFrame {
                             .addComponent(spinnerPagina, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblPaginas)
                             .addGroup(panelAreaCriacaoLayout.createSequentialGroup()
-                                .addGroup(panelAreaCriacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnCadastrar)
-                                    .addGroup(panelAreaCriacaoLayout.createSequentialGroup()
-                                        .addComponent(txtNomeLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(33, 33, 33)
-                                        .addComponent(jLabel1)))
+                                .addComponent(txtNomeLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(33, 33, 33)
+                                .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(checkLido)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panelAreaCriacaoLayout.createSequentialGroup()
+                        .addGap(197, 197, 197)
+                        .addComponent(btnCadastrar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnLimpar)
+                        .addGap(56, 56, 56))))
         );
         panelAreaCriacaoLayout.setVerticalGroup(
             panelAreaCriacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,12 +192,27 @@ public class VIEWcadastroLivros extends javax.swing.JFrame {
                 .addComponent(lblPaginas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(spinnerPagina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
-                .addComponent(btnCadastrar)
-                .addGap(89, 89, 89))
+                .addGap(48, 48, 48)
+                .addGroup(panelAreaCriacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCadastrar)
+                    .addComponent(btnLimpar))
+                .addGap(83, 83, 83))
         );
 
-        tabbedPanelBiblioteca.addTab("Área de criação", panelAreaCriacao);
+        tabbedPanelBiblioteca.addTab("", panelAreaCriacao);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 545, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 295, Short.MAX_VALUE)
+        );
+
+        tabbedPanelBiblioteca.addTab("tab3", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -266,6 +294,11 @@ public class VIEWcadastroLivros extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tableLivrosMouseClicked
 
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        esvaziarComponents();
+        mudarEstadoCadastro();
+    }//GEN-LAST:event_btnLimparActionPerformed
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -293,9 +326,11 @@ public class VIEWcadastroLivros extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnLimpar;
     private javax.swing.JComboBox cboGenero;
     private javax.swing.JCheckBox checkLido;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblGenero;
     private javax.swing.JLabel lblNome;
@@ -395,5 +430,10 @@ public class VIEWcadastroLivros extends javax.swing.JFrame {
         livros = livroDAO.read();
         generos = generoDAO.read();
         marcacoes = marcacaoDAO.read(livro);
+    }
+
+    private void inserirIconesJTabbed() {
+        tabbedPanelBiblioteca.setIconAt(0,new ImageIcon(getClass().getResource("/image/home.png")));
+        tabbedPanelBiblioteca.setIconAt(1, new ImageIcon(getClass().getResource("/image/edit.png")));
     }
 }

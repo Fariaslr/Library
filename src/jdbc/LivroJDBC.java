@@ -43,7 +43,7 @@ public class LivroJDBC {
         ResultSet rs = null;
 
         List<Livro> livros = new ArrayList<>();
-        String list = "SELECT * FROM livros l INNER JOIN generos g ON l.id_genero = g.id_genero ORDER BY nome_livro";
+        String list = "SELECT * FROM livros l INNER JOIN generos g ON l.id_genero = g.id_genero";
 
         try {
             pst = conexao.prepareStatement(list);
@@ -125,8 +125,8 @@ public class LivroJDBC {
             pst.setString(1, l.getNomeLivro());
             pst.setInt(2, l.getPaginas());
             pst.setInt(3, l.getGeneroLivro().getIdGenero());
-            pst.setInt(4, l.getIdLivro());
-            pst.setBoolean(5, l.isLido());
+            pst.setInt(5, l.getIdLivro());
+            pst.setBoolean(4, l.isLido());
 
             pst.executeUpdate();
 

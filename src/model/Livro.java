@@ -88,4 +88,8 @@ public class Livro {
         return periodo.getDays();
     }
 
+    @Override
+    public String toString() {
+        return nomeLivro;
+    }
 }

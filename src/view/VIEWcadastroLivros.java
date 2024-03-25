@@ -140,7 +140,7 @@ public class VIEWcadastroLivros extends javax.swing.JFrame {
 
         lblGenero.setText("Genero");
 
-        lblPaginas.setText("Páginas");
+        lblPaginas.setText("Quantidade de páginas");
 
         btnCadastrar.setText("Cadastrar");
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
@@ -178,7 +178,7 @@ public class VIEWcadastroLivros extends javax.swing.JFrame {
                             .addComponent(spinnerPagina)
                             .addGroup(panelAreaCriacaoLayout.createSequentialGroup()
                                 .addComponent(lblLeitura)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(checkLido)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(panelAreaCriacaoLayout.createSequentialGroup()
@@ -200,20 +200,20 @@ public class VIEWcadastroLivros extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblGenero)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cboGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblPaginas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(spinnerPagina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(panelAreaCriacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelAreaCriacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelAreaCriacaoLayout.createSequentialGroup()
-                        .addComponent(lblLeitura)
-                        .addGap(29, 29, 29)
-                        .addGroup(panelAreaCriacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnLimpar)
-                            .addComponent(btnCadastrar)))
+                        .addComponent(cboGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblPaginas)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(spinnerPagina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblLeitura))
                     .addComponent(checkLido))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addGroup(panelAreaCriacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLimpar)
+                    .addComponent(btnCadastrar))
                 .addGap(35, 35, 35))
         );
 
@@ -325,7 +325,7 @@ public class VIEWcadastroLivros extends javax.swing.JFrame {
     }//GEN-LAST:event_formFocusGained
 
     private void tableMarcacoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMarcacoesMouseClicked
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_tableMarcacoesMouseClicked
 
     private void panelAreaCriacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panelAreaCriacaoFocusLost

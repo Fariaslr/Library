@@ -10,7 +10,7 @@ import java.util.List;
 import model.Genero;
 
 public class GeneroJDBC {
-
+    
     public List<Genero> read() {
 
         Connection conexao = ConnectionMySQL.conectar();

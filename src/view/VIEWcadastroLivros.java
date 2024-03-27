@@ -58,7 +58,6 @@ public class VIEWcadastroLivros extends javax.swing.JFrame {
         tableMarcacoes = new javax.swing.JTable();
         cboLivros = new javax.swing.JComboBox();
         lblOrdenar = new javax.swing.JLabel();
-        panelAddMarcacoes = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Biblioteca");
@@ -289,21 +288,6 @@ public class VIEWcadastroLivros extends javax.swing.JFrame {
 
         tabbedPanelBiblioteca.addTab("", panelMarcacoes);
 
-        panelAddMarcacoes.setBackground(new java.awt.Color(164, 234, 188));
-
-        javax.swing.GroupLayout panelAddMarcacoesLayout = new javax.swing.GroupLayout(panelAddMarcacoes);
-        panelAddMarcacoes.setLayout(panelAddMarcacoesLayout);
-        panelAddMarcacoesLayout.setHorizontalGroup(
-            panelAddMarcacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 263, Short.MAX_VALUE)
-        );
-        panelAddMarcacoesLayout.setVerticalGroup(
-            panelAddMarcacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 301, Short.MAX_VALUE)
-        );
-
-        tabbedPanelBiblioteca.addTab("", panelAddMarcacoes);
-
         javax.swing.GroupLayout panelBackgroundLayout = new javax.swing.GroupLayout(panelBackground);
         panelBackground.setLayout(panelBackgroundLayout);
         panelBackgroundLayout.setHorizontalGroup(
@@ -339,6 +323,18 @@ public class VIEWcadastroLivros extends javax.swing.JFrame {
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
 
     }//GEN-LAST:event_formFocusGained
+
+    private void cboLivrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboLivrosActionPerformed
+
+    }//GEN-LAST:event_cboLivrosActionPerformed
+
+    private void cboLivrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboLivrosMouseClicked
+
+    }//GEN-LAST:event_cboLivrosMouseClicked
+
+    private void cboLivrosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboLivrosItemStateChanged
+
+    }//GEN-LAST:event_cboLivrosItemStateChanged
 
     private void tableMarcacoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMarcacoesMouseClicked
 
@@ -384,39 +380,27 @@ public class VIEWcadastroLivros extends javax.swing.JFrame {
 
         switch (escolha) {
             case 0:
-                preencherCampos(linha);
-                tabbedPanelBiblioteca.setSelectedIndex(1);
-                break;
+            preencherCampos(linha);
+            tabbedPanelBiblioteca.setSelectedIndex(1);
+            break;
             case 1:
-                livroDAO.delete(livros.get(linha));
-                coletarBancoDados();
-                preencherTabelaLivros();
-                preencherComboLivros();
-                break;
+            livroDAO.delete(livros.get(linha));
+            coletarBancoDados();
+            preencherTabelaLivros();
+            preencherComboLivros();
+            break;
             case 2:
-                String mensagem = "Marcações:\n\n";
-                for (Marcacao m : marcacaoDAO.read(livros.get(linha))) {
-                    mensagem += m.getAnotacao() + "\n";
-                }
-                JOptionPane.showMessageDialog(this, mensagem + "\n");
-                break;
+            String mensagem = "Marcações:\n\n";
+            for (Marcacao m : marcacaoDAO.read(livros.get(linha))) {
+                mensagem += m.getAnotacao() + "\n";
+            }
+            JOptionPane.showMessageDialog(this, mensagem + "\n");
+            break;
             case 3:
-                break;
+            break;
             default:
         }
     }//GEN-LAST:event_tableLivrosMouseClicked
-
-    private void cboLivrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboLivrosActionPerformed
-
-    }//GEN-LAST:event_cboLivrosActionPerformed
-
-    private void cboLivrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboLivrosMouseClicked
-
-    }//GEN-LAST:event_cboLivrosMouseClicked
-
-    private void cboLivrosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboLivrosItemStateChanged
-
-    }//GEN-LAST:event_cboLivrosItemStateChanged
 
     public static void main(String args[]) {
 
@@ -446,7 +430,6 @@ public class VIEWcadastroLivros extends javax.swing.JFrame {
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblOrdenar;
     private javax.swing.JLabel lblPaginas;
-    private javax.swing.JPanel panelAddMarcacoes;
     private javax.swing.JPanel panelAreaCriacao;
     private javax.swing.JPanel panelBackground;
     private javax.swing.JPanel panelLivros;
@@ -514,7 +497,7 @@ public class VIEWcadastroLivros extends javax.swing.JFrame {
     }
 
     private void definirIcone() {
-        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/image/Icon.png")));
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/image/icon.png")));
     }
 
     private void esvaziarComponents() {
@@ -576,7 +559,6 @@ public class VIEWcadastroLivros extends javax.swing.JFrame {
         tabbedPanelBiblioteca.setIconAt(0, new ImageIcon(getClass().getResource("/image/home.png")));
         tabbedPanelBiblioteca.setIconAt(1, new ImageIcon(getClass().getResource("/image/edit.png")));
         tabbedPanelBiblioteca.setIconAt(2, new ImageIcon(getClass().getResource("/image/marcacao.png")));
-        tabbedPanelBiblioteca.setIconAt(3, new ImageIcon(getClass().getResource("/image/addMarcacao.png")));
         //tabbedPanelBiblioteca.setUI(new CenterTabbedPane());
     }
 

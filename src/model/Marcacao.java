@@ -6,11 +6,11 @@ public class Marcacao {
 
     int idMarcacao;
     String titulo;
+    String anotacao;
     Livro livro;
     int paginaAtual;
     Date dataRegistro;
-    Date dataEditado;
-    String anotacao;
+    Date dataEditado;    
 
     public int getIdMarcacao() {
         return idMarcacao;

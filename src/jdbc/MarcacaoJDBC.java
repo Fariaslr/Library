@@ -1,6 +1,5 @@
 package jdbc;
 
-import com.mysql.cj.jdbc.PreparedStatementWrapper;
 import dal.ConnectionMySQL;
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,12 +10,22 @@ import model.Marcacao;
 
 public class MarcacaoJDBC {
 
-    Connection conexao = null;
-    PreparedStatement pst = null;
-    ResultSet rs = null;
-
     public void create(Marcacao marcacao) {
-        conexao = ConnectionMySQL.conectar();
+        Connection conexao = ConnectionMySQL.conectar();
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        String insert = "INSERT INTO marcacoes (titulo,anotacao,id_livro,pagina_atual)"
+                + "VALUES(?,?,?,?)";
+        try {
+            pst = conexao.prepareStatement(insert);
+            pst.setString(1, marcacao.getTitulo());
+            pst.setString(2, marcacao.getAnotacao());
+            pst.setInt(3, marcacao.getLivro().getIdLivro());
+            pst.setInt(4, marcacao.getPaginaAtual());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
     }
 
@@ -25,7 +34,6 @@ public class MarcacaoJDBC {
         PreparedStatement pst = null;
         ResultSet rs = null;
         List<Marcacao> marcacoes = new ArrayList<>();
-        
 
         String list = "SELECT * FROM marcacoes WHERE id_livro = ?";
 
@@ -51,13 +59,12 @@ public class MarcacaoJDBC {
 
         return marcacoes;
     }
-    
-    public List<Marcacao> list (){
+
+    public List<Marcacao> list() {
         Connection conexao = ConnectionMySQL.conectar();
         PreparedStatement pst = null;
         ResultSet rs = null;
         List<Marcacao> marcacoes = new ArrayList<>();
-        
 
         String list = "SELECT * FROM marcacoes m INNER JOIN livros l ON m.id_livro = l.id_livro";
 

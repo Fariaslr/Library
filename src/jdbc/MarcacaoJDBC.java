@@ -1,6 +1,7 @@
 package jdbc;
 
 import dal.ConnectionMySQL;
+import java.awt.HeadlessException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +24,12 @@ public class MarcacaoJDBC {
             pst.setString(2, marcacao.getAnotacao());
             pst.setInt(3, marcacao.getLivro().getIdLivro());
             pst.setInt(4, marcacao.getPaginaAtual());
-        } catch (Exception e) {
-            System.out.println(e);
+            
+            pst.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+        } catch (HeadlessException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao salvar: " + e);
         }
 
     }

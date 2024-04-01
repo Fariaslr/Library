@@ -10,7 +10,17 @@ public class Marcacao {
     Livro livro;
     int paginaAtual;
     Date dataRegistro;
-    Date dataEditado;    
+    Date dataEditado;
+
+    public Marcacao(String titulo, String anotacao, Livro livro, int paginaAtual) {
+        this.titulo = titulo;
+        this.anotacao = anotacao;
+        this.livro = livro;
+        this.paginaAtual = paginaAtual;
+    }
+
+    public Marcacao() {
+    }
 
     public int getIdMarcacao() {
         return idMarcacao;
@@ -67,6 +77,5 @@ public class Marcacao {
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-    
 
 }

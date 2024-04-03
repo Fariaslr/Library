@@ -24,10 +24,8 @@ public class MarcacaoJDBC {
             pst.setString(2, marcacao.getAnotacao());
             pst.setInt(3, marcacao.getLivro().getIdLivro());
             pst.setInt(4, marcacao.getPaginaAtual());
-            
+
             pst.executeUpdate();
-            
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao salvar: " + e);
         }
@@ -100,5 +98,23 @@ public class MarcacaoJDBC {
         }
 
         return marcacoes;
+    }
+
+    public void delete(Marcacao m) {
+        Connection conexao = ConnectionMySQL.conectar();
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        
+        String delete = "DELETE FROM marcacoes WHERE id_marcacao = ?";
+        try {
+            pst = conexao.prepareStatement(delete);
+            pst.setInt(1, m.getIdMarcacao());
+            
+            pst.executeUpdate();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao Excluir: " + e);
+        } finally{
+            ConnectionMySQL.closeConnection(conexao, pst);
+        }
     }
 }

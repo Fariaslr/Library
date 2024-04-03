@@ -442,10 +442,10 @@ public class VIEW extends javax.swing.JFrame {
                 tabbedPanelBiblioteca.setSelectedIndex(3);
                 break;
             case 1:
-                /*livroDAO.delete(livros.get(linha));
+                marcacaoDAO.delete(auxiliar.get(linha));
                 coletarBancoDados();
-                preencherTabelaLivros();
-                initComboBox();*/
+                preencherTabelaMarcacoes();
+                initComboBox();
                 break;
             case 2:
                 /*String mensagem = "Marcações:\n\n";
@@ -559,6 +559,8 @@ public class VIEW extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, mensagem + "\n");
                 break;
             case 3:
+                tabbedPanelBiblioteca.setSelectedIndex(3);
+                cboLivrosMarcacoes.setSelectedItem(livros.get(linha));
                 break;
             default:
         }

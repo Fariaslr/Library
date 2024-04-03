@@ -27,7 +27,6 @@ public class LivroJDBC {
 
             pst.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao salvar: " + e);
         } finally {
@@ -129,8 +128,6 @@ public class LivroJDBC {
             pst.setBoolean(4, l.isLido());
 
             pst.executeUpdate();
-
-            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao Atualizar: " + e);
         } finally {
@@ -143,15 +140,13 @@ public class LivroJDBC {
         Connection conexao = ConnectionMySQL.conectar();
         PreparedStatement pst = null;
 
-        String update = "DELETE FROM livros WHERE id_livro = ?";
+        String delete = "DELETE FROM livros WHERE id_livro = ?";
 
         try {
-            pst = conexao.prepareStatement(update);
+            pst = conexao.prepareStatement(delete);
             pst.setInt(1, livro.getIdLivro());
 
             pst.executeUpdate();
-
-            JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao Excluir: " + e);
         } finally {

@@ -85,7 +85,6 @@ public class MarcacaoJDBC {
                 livro.setIdLivro(rs.getInt("id_livro"));
                 livro.setNomeLivro(rs.getString("nome_livro"));
                 livro.setPaginas(rs.getInt("paginas"));
-                livro.setNota(rs.getInt("nota"));
                 livro.setDataRegistro(rs.getDate("data_registro"));
                 livro.setDataEditado(rs.getDate("data_editado"));
                 livro.setLido(rs.getBoolean("lido"));

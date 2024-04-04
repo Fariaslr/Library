@@ -11,11 +11,21 @@ public class Livro {
     private int idLivro;
     String nomeLivro;
     int paginas;
-    int nota;
     Date dataRegistro;
     Date dataEditado;
     Genero generoLivro;
     boolean lido;
+
+    public Livro() {
+    }
+
+    public Livro(String nomeLivro, int paginas, Date dataRegistro, Genero generoLivro, boolean lido) {
+        this.nomeLivro = nomeLivro;
+        this.paginas = paginas;
+        this.dataRegistro = dataRegistro;
+        this.generoLivro = generoLivro;
+        this.lido = lido;
+    }
 
     public int getIdLivro() {
         return idLivro;
@@ -39,14 +49,6 @@ public class Livro {
 
     public void setPaginas(int paginas) {
         this.paginas = paginas;
-    }
-
-    public int getNota() {
-        return nota;
-    }
-
-    public void setNota(int nota) {
-        this.nota = nota;
     }
 
     public Date getDataRegistro() {
@@ -80,7 +82,7 @@ public class Livro {
     public void setLido(boolean lido) {
         this.lido = lido;
     }
-       
+
     public int calcularDias() {
         LocalDate birth = LocalDate.now();
         LocalDate nascimento = Instant.ofEpochMilli(dataRegistro.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();

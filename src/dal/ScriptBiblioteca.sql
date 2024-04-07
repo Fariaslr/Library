@@ -23,17 +23,18 @@ create table livros(
     id_genero int
 );
 
-alter table livros
-add constraint fkGeneroIdGenero foreign key (id_genero) references generos (id_genero);
-
 create table marcacoes(
     id_marcacao int auto_increment primary key,
     id_livro int,
     pagina_atual int,
-    data_registro datetime default current_timestamp,
-    data_editado datetime on update current_timestamp,
+    titulo varchar(50),
+    data_registro_marcacao datetime default current_timestamp,
+    data_editado_marcacao datetime on update current_timestamp,
     anotacao varchar(200)    
 );
+
+alter table livros
+add constraint fkGeneroIdGenero foreign key (id_genero) references generos (id_genero);
  
 alter table marcacoes
 add constraint fkLivroIdLivro foreign key (id_livro) references livros (id_livro);

@@ -2,6 +2,8 @@ package view;
 
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 import javax.swing.*;
@@ -25,7 +27,7 @@ public class VIEW extends javax.swing.JFrame {
 
     Marcacao marcacao;
     List<Marcacao> marcacoes;
-    List<Marcacao> porLivro;
+    List<Marcacao> filtroPorLivro;
     List<Marcacao> auxiliar;
 
     boolean editarLivro = false;
@@ -564,9 +566,11 @@ public class VIEW extends javax.swing.JFrame {
     private void tableMarcacoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMarcacoesMouseClicked
         String opcao[] = {"Editar", "Excluir", "Info"};
         int linha = tableMarcacoes.getSelectedRow();
-        auxiliar = cboLivros.getSelectedIndex() == 0 ? marcacoes : porLivro;
+        auxiliar = cboLivros.getSelectedIndex() == 0 ? marcacoes : filtroPorLivro;
 
-        int escolha = JOptionPane.showOptionDialog(this, auxiliar.get(linha).getTitulo() + " - " + auxiliar.get(linha).getAnotacao() + "\n" + auxiliar.get(linha).getLivro().getNomeLivro(),
+        int escolha = JOptionPane.showOptionDialog(this, auxiliar.get(linha).getTitulo()
+                + " - " + auxiliar.get(linha).getAnotacao() + "\n"
+                + auxiliar.get(linha).getLivro().getNomeLivro(),
                 "Marcação",
                 JOptionPane.CANCEL_OPTION,
                 JOptionPane.DEFAULT_OPTION,
@@ -588,11 +592,12 @@ public class VIEW extends javax.swing.JFrame {
                 initCombosBox();
                 break;
             case 2:
-                /*String mensagem = "Marcações:\n\n";
-                for (Marcacao m : marcacaoDAO.read(livros.get(linha))) {
-                    mensagem += m.getAnotacao() + "\n";
-                }
-                JOptionPane.showMessageDialog(this, mensagem + "\n");*/
+                JOptionPane.showMessageDialog(this,
+                        "Título: " + auxiliar.get(linha).getTitulo()
+                        + "\nAnotação: " + auxiliar.get(linha).getAnotacao()
+                        + "\nLivro: " + auxiliar.get(linha).getLivro().getNomeLivro()
+                        + "\nGênero: " + auxiliar.get(linha).getLivro().getGeneroLivro().getDescricaoGenero()
+                        + "\n Data cadastro: " + new SimpleDateFormat("dd/MM/yyyy").format(auxiliar.get(linha).getDataRegistro()));
                 break;
             default:
         }
@@ -673,6 +678,7 @@ public class VIEW extends javax.swing.JFrame {
     private void tableLivrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableLivrosMouseClicked
         String opcao[] = {"Editar", "Excluir", "Mostrar marcações", "Adicionar marcação"};
         int linha = tableLivros.getSelectedRow();
+        System.out.println(livros.get(linha).calcularDias() + " dias");
         int escolha = JOptionPane.showOptionDialog(this,
                 "Livro: " + livros.get(linha).getNomeLivro() + " - " + livros.get(linha).getGeneroLivro().getDescricaoGenero(),
                 "Área de edição",
@@ -943,14 +949,14 @@ public class VIEW extends javax.swing.JFrame {
     }
 
     private void preencherTabelaMarcacoesPorLivro(int idLivro) {
-        porLivro = marcacoes.stream().filter(m -> m.getLivro().getIdLivro() == idLivro).map(mm -> mm).collect(Collectors.toList());
+        filtroPorLivro = marcacoes.stream().filter(m -> m.getLivro().getIdLivro() == idLivro).map(mm -> mm).collect(Collectors.toList());
 
         DefaultTableModel dtmMarcacoes = (DefaultTableModel) tableMarcacoes.getModel();
         dtmMarcacoes.setNumRows(0);
         tableMarcacoes.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         TableColumn colunaPagina = tableMarcacoes.getColumnModel().getColumn(1);
         colunaPagina.setMaxWidth(45);
-        for (Marcacao m : porLivro) {
+        for (Marcacao m : filtroPorLivro) {
             dtmMarcacoes.addRow(new Object[]{
                 " " + m.getTitulo() + " - " + m.getAnotacao(),
                 m.getPaginaAtual()
@@ -961,8 +967,8 @@ public class VIEW extends javax.swing.JFrame {
 
     private Marcacao criarMarcacao() {
         Marcacao marcacaoCriada = new Marcacao(
-                txtTítulo.getText(),
-                editorAnotacao.getText(),
+                txtTítulo.getText().trim(),
+                editorAnotacao.getText().trim(),
                 (Livro) cboLivrosMarcacoes.getItemAt(cboLivrosMarcacoes.getSelectedIndex()),
                 Integer.parseInt(spinnerPaginaMarcacao.getValue().toString())
         );
@@ -995,11 +1001,11 @@ public class VIEW extends javax.swing.JFrame {
     }
 
     private Marcacao atualizarMarcacao() {
-        marcacao.setTitulo(txtTítulo.getText());
-        marcacao.setAnotacao(editorAnotacao.getText());
+        marcacao.setTitulo(txtTítulo.getText().trim());
+        marcacao.setAnotacao(editorAnotacao.getText().trim());
         marcacao.setPaginaAtual(Integer.parseInt(spinnerPaginaMarcacao.getValue().toString()));
         marcacao.setLivro((Livro) cboLivrosMarcacoes.getItemAt(cboLivrosMarcacoes.getSelectedIndex()));
         return marcacao;
     }
-    
+
 }

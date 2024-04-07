@@ -84,9 +84,9 @@ public class Livro {
     }
 
     public int calcularDias() {
-        LocalDate birth = LocalDate.now();
-        LocalDate nascimento = Instant.ofEpochMilli(dataRegistro.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
-        Period periodo = Period.between(nascimento, birth);
+        LocalDate hoje = LocalDate.now();
+        LocalDate dataReg = Instant.ofEpochMilli(dataRegistro.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
+        Period periodo = Period.between(dataReg, hoje);
         return periodo.getDays();
     }
 

@@ -54,8 +54,8 @@ public class LivroJDBC {
                 livro.setIdLivro(rs.getInt("id_livro"));
                 livro.setNomeLivro(rs.getString("nome_livro"));
                 livro.setPaginas(rs.getInt("paginas"));
-                livro.setDataRegistro(rs.getDate("data_registro"));
-                livro.setDataEditado(rs.getDate("data_editado"));
+                livro.setDataRegistro(rs.getDate("data_registro_livro"));
+                livro.setDataEditado(rs.getDate("data_editado_livro"));
                 livro.setLido(rs.getBoolean("lido"));
                 genero.setIdGenero(rs.getInt("id_genero"));
                 genero.setDescricaoGenero(rs.getString("descricao_genero"));

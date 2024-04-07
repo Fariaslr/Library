@@ -39,8 +39,7 @@ public class LivroJDBC {
 
         Connection conexao = ConnectionMySQL.conectar();
         PreparedStatement pst = null;
-        ResultSet rs = null;
-
+        ResultSet rs;
         List<Livro> livros = new ArrayList<>();
         String list = "SELECT * FROM livros l INNER JOIN generos g ON l.id_genero = g.id_genero ORDER BY nome_livro";
 
@@ -76,7 +75,7 @@ public class LivroJDBC {
 
         Connection conexao = ConnectionMySQL.conectar();
         PreparedStatement pst = null;
-        ResultSet rs = null;
+        ResultSet rs;
 
         List<Livro> livros = new ArrayList<>();
         String search = "SELECT * FROM livro WHERE nomeLivro LIKE ?";

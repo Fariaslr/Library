@@ -23,16 +23,19 @@ public class VIEW extends javax.swing.JFrame {
     Livro livro;
     List<Livro> livros;
 
+    Marcacao marcacao;
     List<Marcacao> marcacoes;
     List<Marcacao> porLivro;
+    List<Marcacao> auxiliar;
 
-    boolean editarLivro = false, edidarMarcacao = false;
+    boolean editarLivro = false;
+    boolean editarMarcacao = false;
 
     public VIEW() {
         initComponents();
         coletarBancoDados();
         initSpinners();
-        initComboBox();
+        initCombosBox();
         initTables();
         initIcons();
     }
@@ -561,7 +564,7 @@ public class VIEW extends javax.swing.JFrame {
     private void tableMarcacoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMarcacoesMouseClicked
         String opcao[] = {"Editar", "Excluir", "Info"};
         int linha = tableMarcacoes.getSelectedRow();
-        List<Marcacao> auxiliar = cboLivros.getSelectedIndex() == 0 ? marcacoes : porLivro;
+        auxiliar = cboLivros.getSelectedIndex() == 0 ? marcacoes : porLivro;
 
         int escolha = JOptionPane.showOptionDialog(this, auxiliar.get(linha).getTitulo() + " - " + auxiliar.get(linha).getAnotacao() + "\n" + auxiliar.get(linha).getLivro().getNomeLivro(),
                 "Marcação",
@@ -574,14 +577,15 @@ public class VIEW extends javax.swing.JFrame {
 
         switch (escolha) {
             case 0:
-                preencherCamposMarcacao(auxiliar.get(linha));
                 tabbedPanelBiblioteca.setSelectedIndex(3);
+                preencherCamposMarcacao(linha);
+                mudarMarcacaoAtualizar();
                 break;
             case 1:
                 marcacaoDAO.delete(auxiliar.get(linha));
                 coletarBancoDados();
                 preencherTabelaMarcacoes();
-                initComboBox();
+                initCombosBox();
                 break;
             case 2:
                 /*String mensagem = "Marcações:\n\n";
@@ -603,7 +607,7 @@ public class VIEW extends javax.swing.JFrame {
     }//GEN-LAST:event_panelEdicaoLivroFocusGained
 
     private void btnLimparLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparLivroActionPerformed
-        esvaziarComponentsLivro();
+        esvaziarCamposLivro();
         mudarLivroCadastro();
     }//GEN-LAST:event_btnLimparLivroActionPerformed
 
@@ -613,15 +617,15 @@ public class VIEW extends javax.swing.JFrame {
         } else if (cboGenero.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(this, "Gênero vazio");
         } else if (editarLivro) {
-            atualizarLivro();
-            esvaziarComponentsLivro();
+            livroDAO.update(atualizarLivro());
+            mudarLivroCadastro();
         } else {
             livroDAO.create(cadastrarLivro());
-            esvaziarComponentsLivro();
-            coletarBancoDados();
-            preencherTabelaLivros();
-            initComboBox();
         }
+        coletarBancoDados();
+        preencherTabelaLivros();
+        initCombosBox();
+        esvaziarCamposLivro();
     }//GEN-LAST:event_btnCadastraLivroActionPerformed
 
     private void cboLivrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboLivrosActionPerformed
@@ -650,13 +654,16 @@ public class VIEW extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Escolha um livro");
         } else if (spinnerPaginaMarcacao.getValue().equals(0)) {
             JOptionPane.showMessageDialog(this, "Selecione uma página");
+        } else if (editarMarcacao) {
+            marcacaoDAO.update(atualizarMarcacao());
+            mudarMarcacaoCadastro();
         } else {
-            marcacaoDAO.create(coletarMarcacão());
-            esvaziarCamposMarcacao();
-            coletarBancoDados();
-            initComboBox();
-            initTables();
+            marcacaoDAO.create(criarMarcacao());
         }
+        coletarBancoDados();
+        initCombosBox();
+        initTables();
+        esvaziarCamposMarcacao();
     }//GEN-LAST:event_btnCadastraMarcacaoActionPerformed
 
     private void panelLivrosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panelLivrosFocusGained
@@ -678,14 +685,15 @@ public class VIEW extends javax.swing.JFrame {
 
         switch (escolha) {
             case 0:
-                preencherCamposLivro(linha);
                 tabbedPanelBiblioteca.setSelectedIndex(2);
+                preencherCamposLivro(linha);
+                mudarLivroAtualizar();
                 break;
             case 1:
                 livroDAO.delete(livros.get(linha));
                 coletarBancoDados();
                 preencherTabelaLivros();
-                initComboBox();
+                initCombosBox();
                 break;
             case 2:
                 String mensagem = "Marcações:\n";
@@ -704,6 +712,7 @@ public class VIEW extends javax.swing.JFrame {
 
     private void btnLimparMarcacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparMarcacaoActionPerformed
         esvaziarCamposMarcacao();
+        mudarMarcacaoCadastro();
     }//GEN-LAST:event_btnLimparMarcacaoActionPerformed
 
     private void txtNomeLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeLivroActionPerformed
@@ -771,29 +780,56 @@ public class VIEW extends javax.swing.JFrame {
     private javax.swing.JTextField txtTítulo;
     // End of variables declaration//GEN-END:variables
 
+    private void initIcons() {
+        definirIcone();
+        inserirIconeJTabbed();
+    }
+
     private void definirIcone() {
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/image/icon.png")));
     }
 
-    private void initComboBox() {
+    private void inserirIconeJTabbed() {
+        tabbedPanelBiblioteca.setIconAt(0, new ImageIcon(getClass().getResource("/image/home.png")));
+        tabbedPanelBiblioteca.setIconAt(1, new ImageIcon(getClass().getResource("/image/edit.png")));
+        tabbedPanelBiblioteca.setIconAt(2, new ImageIcon(getClass().getResource("/image/marcacao.png")));
+        tabbedPanelBiblioteca.setIconAt(3, new ImageIcon(getClass().getResource("/image/marker.png")));
+        tabbedPanelBiblioteca.setUI(new CenterTabbedPane());
+    }
+
+    private void initCombosBox() {
         preencherComboGenero();
         preencherComboLivros();
         preecherComboLivrosMarcacoes();
     }
 
+    private void preencherComboGenero() {
+        cboGenero.removeAllItems();
+        cboGenero.addItem("");
+        for (Genero g : generos) {
+            cboGenero.addItem(g);
+        }
+    }
+
+    private void preencherComboLivros() {
+        cboLivros.removeAllItems();
+        cboLivros.addItem(" ");
+        for (Livro l : livros) {
+            cboLivros.addItem(l);
+        }
+    }
+
+    private void preecherComboLivrosMarcacoes() {
+        cboLivrosMarcacoes.removeAllItems();
+        cboLivrosMarcacoes.addItem(" ");
+        for (Livro l : livros) {
+            cboLivrosMarcacoes.addItem(l);
+        }
+    }
+
     private void initSpinners() {
         iniciarSpinner(spinnerPaginaLivro);
         iniciarSpinner(spinnerPaginaMarcacao);
-    }
-
-    private void initTables() {
-        preencherTabelaLivros();
-        preencherTabelaMarcacoes();
-    }
-
-    private void initIcons() {
-        definirIcone();
-        inserirIconeJTabbed();
     }
 
     private void iniciarSpinner(JSpinner spinner) {
@@ -802,10 +838,9 @@ public class VIEW extends javax.swing.JFrame {
         formatter.setAllowsInvalid(false);
     }
 
-    private void coletarBancoDados() {
-        livros = livroDAO.read();
-        generos = generoDAO.read();
-        marcacoes = marcacaoDAO.list();
+    private void initTables() {
+        preencherTabelaLivros();
+        preencherTabelaMarcacoes();
     }
 
     private void preencherTabelaLivros() {
@@ -834,23 +869,13 @@ public class VIEW extends javax.swing.JFrame {
         }
     }
 
-    private void preencherComboGenero() {
-        cboGenero.removeAllItems();
-        cboGenero.addItem("");
-        for (Genero g : generos) {
-            cboGenero.addItem(g);
-        }
+    private void coletarBancoDados() {
+        livros = livroDAO.read();
+        generos = generoDAO.read();
+        marcacoes = marcacaoDAO.list();
     }
 
-    private void preencherComboLivros() {
-        cboLivros.removeAllItems();
-        cboLivros.addItem(" ");
-        for (Livro l : livros) {
-            cboLivros.addItem(l);
-        }
-    }
-
-    private void esvaziarComponentsLivro() {
+    private void esvaziarCamposLivro() {
         txtNomeLivro.setText("");
         cboGenero.setSelectedIndex(0);
         spinnerPaginaLivro.setValue(0);
@@ -864,7 +889,6 @@ public class VIEW extends javax.swing.JFrame {
         spinnerPaginaLivro.setValue(livro.getPaginas());
         cboGenero.setSelectedIndex(buscarGeneroComboBox(livro.getGeneroLivro().getIdGenero()));
         checkLido.setSelected(livro.isLido());
-        mudarLivroAtualizar();
     }
 
     private Livro cadastrarLivro() {
@@ -888,14 +912,14 @@ public class VIEW extends javax.swing.JFrame {
         return index;
     }
 
-    private void atualizarLivro() {
+    private Livro atualizarLivro() {
         livro.setNomeLivro(txtNomeLivro.getText().trim());
         livro.setGeneroLivro(generos.get(cboGenero.getSelectedIndex() - 1));
         livro.setPaginas(Integer.parseInt(spinnerPaginaLivro.getValue().toString()));
         livro.setDataRegistro(new Date());
         livro.setLido(checkLido.isSelected());
-        livroDAO.update(livro);
-        mudarLivroCadastro();
+
+        return livro;
     }
 
     private void mudarLivroCadastro() {
@@ -908,12 +932,14 @@ public class VIEW extends javax.swing.JFrame {
         editarLivro = true;
     }
 
-    private void inserirIconeJTabbed() {
-        tabbedPanelBiblioteca.setIconAt(0, new ImageIcon(getClass().getResource("/image/home.png")));
-        tabbedPanelBiblioteca.setIconAt(1, new ImageIcon(getClass().getResource("/image/edit.png")));
-        tabbedPanelBiblioteca.setIconAt(2, new ImageIcon(getClass().getResource("/image/marcacao.png")));
-        tabbedPanelBiblioteca.setIconAt(3, new ImageIcon(getClass().getResource("/image/marker.png")));
-        tabbedPanelBiblioteca.setUI(new CenterTabbedPane());
+    private void mudarMarcacaoAtualizar() {
+        editarMarcacao = true;
+        btnCadastraMarcacao.setText("Atualizar");
+    }
+
+    private void mudarMarcacaoCadastro() {
+        editarMarcacao = false;
+        btnCadastraMarcacao.setText("Cadastrar");
     }
 
     private void preencherTabelaMarcacoesPorLivro(int idLivro) {
@@ -933,22 +959,14 @@ public class VIEW extends javax.swing.JFrame {
 
     }
 
-    private void preecherComboLivrosMarcacoes() {
-        cboLivrosMarcacoes.removeAllItems();
-        cboLivrosMarcacoes.addItem(" ");
-        for (Livro l : livros) {
-            cboLivrosMarcacoes.addItem(l);
-        }
-    }
-
-    private Marcacao coletarMarcacão() {
-        Marcacao m = new Marcacao(
+    private Marcacao criarMarcacao() {
+        Marcacao marcacaoCriada = new Marcacao(
                 txtTítulo.getText(),
                 editorAnotacao.getText(),
                 (Livro) cboLivrosMarcacoes.getItemAt(cboLivrosMarcacoes.getSelectedIndex()),
                 Integer.parseInt(spinnerPaginaMarcacao.getValue().toString())
         );
-        return m;
+        return marcacaoCriada;
     }
 
     private void esvaziarCamposMarcacao() {
@@ -958,12 +976,12 @@ public class VIEW extends javax.swing.JFrame {
         cboLivrosMarcacoes.setSelectedIndex(0);
     }
 
-    private void preencherCamposMarcacao(Marcacao marcacao) {
+    private void preencherCamposMarcacao(int linha) {
+        marcacao = auxiliar.get(linha);
         txtTítulo.setText(marcacao.getTitulo());
         editorAnotacao.setText(marcacao.getAnotacao());
         spinnerPaginaMarcacao.setValue(marcacao.getPaginaAtual());
         cboLivrosMarcacoes.setSelectedIndex(buscarLivroComboBox(marcacao.getLivro().getIdLivro()));
-        mudarMarcacaoAtualizar();
     }
 
     private int buscarLivroComboBox(int idLivro) {
@@ -976,7 +994,12 @@ public class VIEW extends javax.swing.JFrame {
         return index;
     }
 
-    private void mudarMarcacaoAtualizar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private Marcacao atualizarMarcacao() {
+        marcacao.setTitulo(txtTítulo.getText());
+        marcacao.setAnotacao(editorAnotacao.getText());
+        marcacao.setPaginaAtual(Integer.parseInt(spinnerPaginaMarcacao.getValue().toString()));
+        marcacao.setLivro((Livro) cboLivrosMarcacoes.getItemAt(cboLivrosMarcacoes.getSelectedIndex()));
+        return marcacao;
     }
+    
 }

@@ -10,15 +10,15 @@ create table generos(
 insert into generos
 value(default,"Terror"),(default,"Suspense"),(default,"Romance"),
     (default,"Comédia"),(default,"Ação"),(default,"Ficção"),(default,"Investimento"),
-    (default,"Educação"),(default,"Desenvolvimento Pessoal"),(default,"Drama"),(default,"Artes");
+    (default,"Educação"),(default,"Desenvolvimento Pessoal"),(default,"Autoajuda"),(default,"Drama"),(default,"Artes");
 
 create table livros(
     id_livro int auto_increment primary key,
     nome_livro varchar(50),
     paginas int,
     nota int,
-    data_registro datetime default current_timestamp,
-    data_editado datetime on update current_timestamp,
+    data_registro_livro datetime default current_timestamp,
+    data_editado_livro datetime on update current_timestamp,
     lido boolean,
     id_genero int
 );
@@ -28,9 +28,9 @@ create table marcacoes(
     id_livro int,
     pagina_atual int,
     titulo varchar(50),
+    anotacao varchar(200),   
     data_registro_marcacao datetime default current_timestamp,
-    data_editado_marcacao datetime on update current_timestamp,
-    anotacao varchar(200)    
+    data_editado_marcacao datetime on update current_timestamp     
 );
 
 alter table livros

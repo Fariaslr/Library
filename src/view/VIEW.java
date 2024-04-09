@@ -564,13 +564,10 @@ public class VIEW extends javax.swing.JFrame {
 
     private void tableMarcacoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMarcacoesMouseClicked
         String opcao[] = {"Editar", "Excluir", "Info"};
-
         auxiliar = cboLivros.getSelectedIndex() == 0 ? marcacoes : filtroPorLivro;
-
         int escolha = JOptionPane.showOptionDialog(this,
-                "Anotação: " + auxiliar.get(tableMarcacoes.getSelectedRow()).getAnotacao()
-                + "\nLivro: " + auxiliar.get(tableMarcacoes.getSelectedRow()).getLivro().getNomeLivro(),
-                auxiliar.get(tableMarcacoes.getSelectedRow()).getTitulo(),
+                "Anotação:\n" + auxiliar.get(tableMarcacoes.getSelectedRow()).getAnotacao(),
+                 auxiliar.get(tableMarcacoes.getSelectedRow()).getTitulo(),
                 JOptionPane.CANCEL_OPTION,
                 JOptionPane.DEFAULT_OPTION,
                 null,
@@ -578,14 +575,16 @@ public class VIEW extends javax.swing.JFrame {
                 opcao[0]
         );
 
+        marcacao = auxiliar.get(tableMarcacoes.getSelectedRow());
+
         switch (escolha) {
             case 0:
                 tabbedPanelBiblioteca.setSelectedIndex(3);
-                preencherCamposMarcacao(auxiliar.get(tableMarcacoes.getSelectedRow()));
+                preencherCamposMarcacao(marcacao);
                 mudarMarcacaoAtualizar();
                 break;
             case 1:
-                marcacaoDAO.delete(auxiliar.get(tableMarcacoes.getSelectedRow()));
+                marcacaoDAO.delete(marcacao);
                 coletarBancoDados();
                 preencherTabelaMarcacoes();
                 initCombosBox();
@@ -624,7 +623,7 @@ public class VIEW extends javax.swing.JFrame {
             livroDAO.update(atualizarLivro());
             mudarLivroCadastro();
         } else {
-            livroDAO.create(cadastrarLivro());
+            livroDAO.create(criarLivro());
         }
         coletarBancoDados();
         preencherTabelaLivros();
@@ -684,17 +683,17 @@ public class VIEW extends javax.swing.JFrame {
                 opcao,
                 opcao[1]
         );
-        
+
         livro = livros.get(tableLivros.getSelectedRow());
 
         switch (escolha) {
             case 0:
                 tabbedPanelBiblioteca.setSelectedIndex(2);
-                preencherCamposLivro(livros.get(tableLivros.getSelectedRow()));
+                preencherCamposLivro(livro);
                 mudarLivroAtualizar();
                 break;
             case 1:
-                livroDAO.delete(livros.get(tableLivros.getSelectedRow()));
+                livroDAO.delete(livro);
                 coletarBancoDados();
                 preencherTabelaLivros();
                 initCombosBox();
@@ -894,13 +893,21 @@ public class VIEW extends javax.swing.JFrame {
         checkLido.setSelected(livro.isLido());
     }
 
-    private Livro cadastrarLivro() {
+    private Livro criarLivro() {
         livro = new Livro(
                 txtNomeLivro.getText(),
                 Integer.parseInt(spinnerPaginaLivro.getValue().toString()),
                 generos.get(cboGenero.getSelectedIndex() - 1),
                 checkLido.isSelected()
         );
+        return livro;
+    }
+
+    private Livro atualizarLivro() {
+        livro.setNomeLivro(txtNomeLivro.getText().trim());
+        livro.setGeneroLivro(generos.get(cboGenero.getSelectedIndex() - 1));
+        livro.setPaginas(Integer.parseInt(spinnerPaginaLivro.getValue().toString()));
+        livro.setLido(checkLido.isSelected());
         return livro;
     }
 
@@ -912,14 +919,6 @@ public class VIEW extends javax.swing.JFrame {
             }
         }
         return index;
-    }
-
-    private Livro atualizarLivro() {
-        livro.setNomeLivro(txtNomeLivro.getText().trim());
-        livro.setGeneroLivro(generos.get(cboGenero.getSelectedIndex() - 1));
-        livro.setPaginas(Integer.parseInt(spinnerPaginaLivro.getValue().toString()));
-        livro.setLido(checkLido.isSelected());
-        return livro;
     }
 
     private void mudarLivroCadastro() {
@@ -969,6 +968,14 @@ public class VIEW extends javax.swing.JFrame {
         return marcacao;
     }
 
+    private Marcacao atualizarMarcacao() {
+        marcacao.setTitulo(txtTítulo.getText().trim());
+        marcacao.setAnotacao(editorAnotacao.getText().trim());
+        marcacao.setPaginaAtual(Integer.parseInt(spinnerPaginaMarcacao.getValue().toString()));
+        marcacao.setLivro((Livro) cboLivrosMarcacoes.getItemAt(cboLivrosMarcacoes.getSelectedIndex()));
+        return marcacao;
+    }
+
     private void esvaziarCamposMarcacao() {
         txtTítulo.setText("Sem título");
         editorAnotacao.setText("");
@@ -993,12 +1000,4 @@ public class VIEW extends javax.swing.JFrame {
         return index;
     }
 
-    private Marcacao atualizarMarcacao() {
-        marcacao = new Marcacao();
-        marcacao.setTitulo(txtTítulo.getText().trim());
-        marcacao.setAnotacao(editorAnotacao.getText().trim());
-        marcacao.setPaginaAtual(Integer.parseInt(spinnerPaginaMarcacao.getValue().toString()));
-        marcacao.setLivro((Livro) cboLivrosMarcacoes.getItemAt(cboLivrosMarcacoes.getSelectedIndex()));
-        return marcacao;
-    }
 }

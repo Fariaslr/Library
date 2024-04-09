@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class Livro {
 
-    private int idLivro;
+    int idLivro;
     String nomeLivro;
     int paginas;
     Date dataRegistro;

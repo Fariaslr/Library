@@ -19,10 +19,9 @@ public class Livro {
     public Livro() {
     }
 
-    public Livro(String nomeLivro, int paginas, Date dataRegistro, Genero generoLivro, boolean lido) {
+    public Livro(String nomeLivro, int paginas, Genero generoLivro, boolean lido) {
         this.nomeLivro = nomeLivro;
         this.paginas = paginas;
-        this.dataRegistro = dataRegistro;
         this.generoLivro = generoLivro;
         this.lido = lido;
     }

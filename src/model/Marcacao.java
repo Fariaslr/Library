@@ -12,14 +12,14 @@ public class Marcacao {
     Date dataRegistro;
     Date dataEditado;
 
+    public Marcacao() {
+    }
+
     public Marcacao(String titulo, String anotacao, Livro livro, int paginaAtual) {
         this.titulo = titulo;
         this.anotacao = anotacao;
         this.livro = livro;
         this.paginaAtual = paginaAtual;
-    }
-
-    public Marcacao() {
     }
 
     public int getIdMarcacao() {

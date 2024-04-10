@@ -78,4 +78,7 @@ public class Marcacao {
         this.titulo = titulo;
     }
 
+    public float calcularProgresso() {
+        return livro.getPaginas() / this.paginaAtual;
+    }
 }

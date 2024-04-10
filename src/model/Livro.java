@@ -82,10 +82,17 @@ public class Livro {
         this.lido = lido;
     }
 
-    public int calcularDias() {
+    public int calcularDiasRegistro() {
         LocalDate hoje = LocalDate.now();
         LocalDate dataReg = Instant.ofEpochMilli(dataRegistro.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
         Period periodo = Period.between(dataReg, hoje);
+        return periodo.getDays();
+    }
+    
+    public int calcularDiasEditado() {
+        LocalDate hoje = LocalDate.now();
+        LocalDate dataEdit = Instant.ofEpochMilli(dataEditado.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
+        Period periodo = Period.between(dataEdit, hoje);
         return periodo.getDays();
     }
 

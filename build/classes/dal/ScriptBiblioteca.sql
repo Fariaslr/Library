@@ -10,7 +10,8 @@ create table generos(
 insert into generos
 value(default,"Terror"),(default,"Suspense"),(default,"Romance"),
     (default,"Comédia"),(default,"Ação"),(default,"Ficção"),(default,"Investimento"),
-    (default,"Educação"),(default,"Desenvolvimento Pessoal"),(default,"Autoajuda"),(default,"Drama"),(default,"Artes");
+    (default,"Educação"),(default,"Desenvolvimento Pessoal"),(default,"Autoajuda"),
+    (default,"Drama"),(default,"Artes");
 
 create table livros(
     id_livro int auto_increment primary key,

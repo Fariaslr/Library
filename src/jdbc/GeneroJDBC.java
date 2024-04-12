@@ -11,6 +11,22 @@ import model.Genero;
 
 public class GeneroJDBC {
 
+    public void create(Genero genero) {
+        Connection conexao = ConnectionMySQL.conectar();
+        PreparedStatement pst = null;
+
+        String insert = "INSERT INTO generos (descricao_genero) VALE (?)";
+
+        try {
+            pst = conexao.prepareStatement(insert);
+            pst.setString(1, genero.getDescricaoGenero());
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            ConnectionMySQL.closeConnection(conexao, pst);
+        }
+    }
+
     public List<Genero> read() {
 
         Connection conexao = ConnectionMySQL.conectar();
